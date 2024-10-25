@@ -1,13 +1,50 @@
-def get_sales_strategy_prompt(month, business_context):
+def get_sales_strategy_prompt(website, month, category_selected, events):
+    events_str = "\n".join(
+        f"{event[1]}: {event[2]} to {event[3]} in {event[4]}"
+        for event in events
+    )
     return f"""
-    Given the current month of {month} and the business context of {business_context}, 
-    suggest ways to increase sales by leveraging events in different geographical regions of India. 
-    Map these suggestions into a calendar for the month.
+    Given the website {website}, the current month of {month}, and the selected category {category_selected}, 
+    suggest marketing campaigns to increase sales by leveraging the following events in different geographical regions of India:
+    {events_str}
+    Map these suggestions into a calendar for the month with detailed descriptions, marketing tips, and a score for each event.
+    Don't include any other text, only the output format below.
+    Output format:
+    {{
+        "15": {{
+          "type": "high",
+          "title": "Local Food Festival",
+          "date": "{{month}} 15-17, {{year}}",
+          "description": 'Annual food festival attracting over 10,000 local food enthusiasts and families. Features local restaurants, food trucks, and cooking demonstrations.',
+          "marketingTips": [
+            'Set up a branded booth with product sampling',
+            'Partner with complementary food vendors',
+            'Run social media contests during the event',
+            'Collect email signups with special festival-only offers'
+          ],
+          "score": 92
+        }},
+        "20": {{
+          "type": "medium",
+          "title": "Tech Conference",
+          "date": "{{month}} 20-22, {{year}}",
+          "description": "Regional technology conference focusing on digital innovation and entrepreneurship. Attracts business leaders and tech professionals.",
+          "marketingTips": [
+            'Showcase your digital solutions',
+            'Schedule one-on-one demos with potential clients',
+            'Host a workshop or speaking session',
+            'Offer exclusive conference attendee discounts'
+          ],
+          "score": 88
+        }}
+    }}
     """
 
-def get_product_list_prompt(domain):
+def get_product_list_prompt(scraped_data):
     return (
-        f"Check the domain given and gather info about products it sells. "
-        f"Only provide list of products/services nothing else in below given output format. "
-        f"{{\"product_list\":[]}} Domain: {domain}"
+        f"Given the following raw data about products and services: {scraped_data}, "
+        f"format this information into a structured list of maximum 10 broader category of products/services. "
+        f"Ensure each product/service is represented as an object with 'name'"
+        f"Return the output in below given output format, nothing else, without backquotes"
+        f"{{\"product_list\": [\"Product Name\", ...]}}"
     )

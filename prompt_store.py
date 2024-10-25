@@ -1,6 +1,6 @@
 def get_sales_strategy_prompt(website, month, category_selected, events):
     events_str = "\n".join(
-        f"{event[1]}: {event[2]} to {event[3]} in {event[4]}"
+        f"{event[1]}: Happens on {event[2]} in {event[3]} - {event[4]}"
         for event in events
     )
     return f"""
@@ -45,9 +45,9 @@ def get_sales_strategy_prompt(website, month, category_selected, events):
 
 def get_product_list_prompt(scraped_data):
     return (
-        f"Given the following raw data about products and services: {scraped_data}, "
-        f"format this information into a structured list of maximum 10 broader category of products/services. "
-        f"Ensure each product/service is represented as an object with 'name'"
+        f"Given the following raw data of websites of businesses and their products and services: {scraped_data},"
+        f"Give maximum 10 broader category only of products/services of that business."
+        f"Make sure it should be relevant to the business."
         f"Return the output in below given output format, nothing else, without backquotes"
-        f"{{\"product_list\": [\"Product Name\", ...]}}"
+        f"{{\"product_list\": [\"Object Name 1\", \"Object Name 2\", ...]}}"
     )

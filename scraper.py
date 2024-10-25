@@ -14,6 +14,10 @@ def scrape_website(url, max_pages=5):
     base_domain = urlparse(url).netloc
     pages_to_scrape = [url]
 
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; SM-G996U Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36"
+    }
+
     def scrape_page(current_url):
         if len(visited) >= max_pages:
             return
@@ -24,7 +28,7 @@ def scrape_website(url, max_pages=5):
         visited.add(current_url)
 
         try:
-            response = requests.get(current_url, timeout=10)
+            response = requests.get(current_url, headers=headers, timeout=10)
             response.raise_for_status()
             soup = BeautifulSoup(response.content, 'html.parser')
 

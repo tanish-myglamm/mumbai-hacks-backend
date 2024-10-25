@@ -29,6 +29,7 @@ def get_strategy():
     llm_answer = service.get_llm_response(prompt)
     llm_answer = llm_answer.replace("```json","")
     llm_answer = llm_answer.replace("```","")
+    print("llm_answer", llm_answer)
     strategy = json.loads(llm_answer)
     return jsonify({"strategy": strategy})
 

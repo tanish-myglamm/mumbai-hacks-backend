@@ -5,7 +5,7 @@ def get_sales_strategy_prompt(website, month, category_selected, events):
     )
     return f"""
     Given the website {website}, the current month of {month}, and the selected category {category_selected}, 
-    suggest marketing campaigns to increase sales by leveraging the following events in different geographical regions of India:
+    suggest marketing campaigns to increase sales by leveraging the following events in different geographical regions of India for below given events:
     {events_str}
     Only include events that are relevant to the product category and have a high potential impact. Skip to return events that are not relevant or are nationally significant event like Gandhi Jayanti or other death anniversaries.
     Map these suggestions into a calendar for the month with detailed descriptions, marketing tips, and a score for each event based on relevance and impact.

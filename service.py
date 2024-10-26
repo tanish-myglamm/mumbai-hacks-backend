@@ -19,7 +19,7 @@ class AzureOpenAIService:
     def get_llm_response(self, user_message):
         # Use the client to get a chat completion response
         response = self.client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": user_message}
